@@ -3,34 +3,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int getKMAX(deque<int> queue, int k)
+int getKMAX(int arr[],int start, int length)
 {
     int max = 1;
-    for (int i = 0; i < k; i++)
+    for (int i = start; i < start + length; i++)
     {
-        if (queue[i] > max)
+        if (arr[i] > max)
         {
-            max = queue[i];
+            max = arr[i];
         }
     }
     return max;
 }
 
 void printKMax(int arr[], int n, int k){
-    deque<int> queue;
-    for (int i = 0; i < n; i++)
+    int max = getKMAX(arr, 0, k);
+    cout << max << " ";
+    for (int i = 1; i <= (n - k); i++)
     {
-        queue.push_back(arr[i]);
-    }
-
-    while (queue.size() >= k)
-    {
-        cout << getKMAX(queue, k);
-        if (k != queue.size())
+        if (max < arr[i + k - 1])
         {
-            cout << " ";
+            max = arr[i+k-1];
         }
-        queue.pop_front();
+        else if (arr[i - 1] == max)
+        {
+            max = getKMAX(arr, i, k);
+        }
+        cout << max << " ";
     }
     cout << endl;
 }
