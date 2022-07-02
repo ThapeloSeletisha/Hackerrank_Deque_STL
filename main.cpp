@@ -1,10 +1,40 @@
 #include <iostream>
 #include <deque> 
+#include <bits/stdc++.h>
 using namespace std;
 
-void printKMax(int arr[], int n, int k){
-
+int getKMAX(deque<int> queue, int k)
+{
+    int max = 1;
+    for (int i = 0; i < k; i++)
+    {
+        if (queue[i] > max)
+        {
+            max = queue[i];
+        }
+    }
+    return max;
 }
+
+void printKMax(int arr[], int n, int k){
+    deque<int> queue;
+    for (int i = 0; i < n; i++)
+    {
+        queue.push_back(arr[i]);
+    }
+
+    while (queue.size() >= k)
+    {
+        cout << getKMAX(queue, k);
+        if (k != queue.size())
+        {
+            cout << " ";
+        }
+        queue.pop_front();
+    }
+    cout << endl;
+}
+
 
 int main(){
   
